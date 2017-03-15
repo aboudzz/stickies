@@ -32,8 +32,13 @@ class StickyWindow(Gtk.Window):
 
 	def __init__(self, app, id, x=0, y=0, w=400, h=400, text=""):
 		Gtk.Window.__init__(self, application=app)
-		
+		rgbaColor = Gdk.RGBA(1.0, 1.0, 0.6, 0.7) # light yellow
+		self.id = id
+
 		# header
+		self.lblTitle = Gtk.Label()
+		self.lblTitle.set_text("Sticky")
+		self.lblTitle.modify_font(Pango.FontDescription("Open Sans Bold 10"))
 		lblNew = Gtk.Label()
 		lblNew.set_markup("\u2795") # + sign
 		self.btnNew = Gtk.ToolButton()
@@ -45,30 +50,69 @@ class StickyWindow(Gtk.Window):
 		self.btnRemove.set_tooltip_text("remove sticky")
 		self.btnRemove.set_label_widget(lblRemove)
 		self.btnRemove.connect("clicked", self.remove_clicked)
-		self.headerbar = Gtk.HeaderBar()
-		self.headerbar.pack_start(self.btnRemove)
-		self.headerbar.pack_end(self.btnNew)
-		self.set_titlebar(self.headerbar)
 
 		# content
 		self.txtBuffer = Gtk.TextBuffer()
 		self.txtBuffer.set_text(text)
 		self.txtView = Gtk.TextView(buffer = self.txtBuffer)
 		self.txtView.set_wrap_mode(Gtk.WrapMode.WORD) # wrap text on width
-		self.txtView.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(1.0, 1.0, 0.6, 0.7)) # light yellow
+		self.txtView.set_border_width(10) # apply some hardcoded padding
+		self.txtView.override_background_color(Gtk.StateFlags.NORMAL, rgbaColor)
 		self.txtView.override_background_color(Gtk.StateFlags.SELECTED, Gdk.RGBA(0.5, 0.5, 0.5, 0.7)) # dark gray
-		self.txtView.modify_font(Pango.FontDescription("Comic Sans MS 14"))
-		self.add(self.txtView)
+		self.txtView.modify_font(Pango.FontDescription("Open Sans 14"))
 		self.txtBuffer.connect("changed", self.text_changed)
 		self.text_changed(self.txtBuffer) # sets the window title
 
-		self.id = id
-		if x == 0 | y == 0:
-			self.set_position(Gtk.WindowPosition.MOUSE) # default on mouse position
-		else:
-			self.move(x, y)
+		# layout
+		hbox = Gtk.HBox()
+		hbox.set_size_request(-1, 33)
+		hbox.modify_bg(Gtk.StateFlags.NORMAL, rgbaColor.to_color())
+		hbox.pack_start(self.btnRemove, False, False, 0)
+		hbox.pack_start(self.lblTitle, True, True, 0)
+		hbox.pack_end(self.btnNew, False, False, 0)
+		ebox = Gtk.EventBox()
+		ebox.add(self.txtView)
+		ebox.modify_bg(Gtk.StateFlags.NORMAL, rgbaColor.to_color())
+		vbox = Gtk.VBox()
+		vbox.pack_start(hbox, False, False, 0)
+		vbox.pack_end(ebox, True, True, 0)
+		junkiebox = Gtk.Box()
 
+		self.add(vbox)
+		self.set_titlebar(junkiebox) # hiding titlebar hack
+		self.set_focus_child(self.txtView)
 		self.resize(w, h)
+		self.set_position(Gtk.WindowPosition.MOUSE) # default on mouse position
+		if (x, y) != (0, 0): self.move(x, y)
+
+		# sticky dragging event signals
+		self.pressed = False
+		self.connect("button-press-event", self.button_pressed)
+		self.connect("button-release-event", self.button_released)
+		self.connect("motion-notify-event", self.motion_notified)
+
+
+	''' mouse button clicking event handler. '''
+	def button_pressed(self, ev, dat):
+		if (dat.x > 40 and dat.y > 40): # not in resizing position
+			if dat.button == 1: # mouse primary
+				self.pressed = True
+				# record clicking position
+				self.x_pressed = dat.x
+				self.y_pressed = dat.y
+
+
+	''' mouse button releasing event handler. '''
+	def button_released(self, ev, dat):
+		if dat.button == 1: # mouse primary
+			self.pressed = False
+
+
+	''' mouse movement event handler '''
+	def motion_notified(self, ev, dat):
+		if (self.pressed):
+			self.move(dat.x_root - self.x_pressed,
+			 		  dat.y_root - self.y_pressed)
 
 
 	''' text buffer changed event handler. '''
@@ -79,8 +123,10 @@ class StickyWindow(Gtk.Window):
 			title = title[:15] + "..." # take 15 chars
 		if title == "":
 			self.set_title("Sticky")
+			self.lblTitle.set_text("Sticky")
 		else:
 			self.set_title(title)
+			self.lblTitle.set_text(title)
 
 
 	''' get the whole text from buffer. '''
