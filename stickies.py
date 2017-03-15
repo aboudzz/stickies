@@ -25,6 +25,7 @@
 import gi, sys, StickyManager
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk
+import signal
 
 
 class StickyApplication(Gtk.Application):
@@ -60,6 +61,7 @@ class StickyApplication(Gtk.Application):
 
 
 if __name__ == "__main__":
+	signal.signal(signal.SIGINT, signal.SIG_DFL)
 	app = StickyApplication()
 	exit_status = app.run(sys.argv)
 	sys.exit(exit_status)
