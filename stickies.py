@@ -24,7 +24,7 @@
 
 import gi, sys, StickyManager
 gi.require_version('Gtk', '3.0')
-from gi.repository import Gtk, Gdk
+from gi.repository import Gtk, Gdk, GLib
 import signal
 
 
@@ -42,7 +42,7 @@ class StickyApplication(Gtk.Application):
 			st.btnNew.connect("clicked", self.window_new)
 			st.show_all()
 
-	
+
 	def do_startup(self):
 		Gtk.Application.do_startup(self)
 
@@ -60,8 +60,49 @@ class StickyApplication(Gtk.Application):
 		st.show_all()
 
 
+	def exit_gracefully(self):
+		for st in StickyManager.stickylist:
+			StickyManager.close_sticky(st)
+		self.quit()
+
+
+# handle singals gracefully
+def SignalHandler(app):
+	def signal_action(signal):
+		if signal is 1: print("Caught signal SIGHUP(1)")
+		elif signal is 2: print("Caught signal SIGINT(2)")
+		elif signal is 15: print("Caught signal SIGTERM(15)")
+		app.exit_gracefully()
+
+	def handler(*args):
+		# Activate GLib signal handler activated
+		signal_action(args[0])
+
+	def idle_handler(*args):
+		# Activate python signal handler
+		GLib.idle_add(signal_action, priority=GLib.PRIORITY_HIGH)
+
+	def install_glib_handler(sig):
+		unix_signal_add = None
+		if hasattr(GLib, "unix_signal_add"):
+			unix_signal_add = GLib.unix_signal_add
+		elif hasattr(GLib, "unix_signal_add_full"):
+			unix_signal_add = GLib.unix_signal_add_full
+		if unix_signal_add:
+			# Register GLib signal handler
+			unix_signal_add(GLib.PRIORITY_HIGH, sig, handler, sig)
+		else:
+			print("WARNING: Can't install GLib signal handler, too old gi.")
+
+	SIGS = [getattr(signal, s, None) for s in "SIGINT SIGTERM SIGHUP".split()]
+	for sig in filter(None, SIGS):
+		# Register Python signal handler
+		signal.signal(sig, idle_handler)
+		GLib.idle_add(install_glib_handler, sig, priority=GLib.PRIORITY_HIGH)
+
+
 if __name__ == "__main__":
-	signal.signal(signal.SIGINT, signal.SIG_DFL)
 	app = StickyApplication()
+	SignalHandler(app)
 	exit_status = app.run(sys.argv)
 	sys.exit(exit_status)
