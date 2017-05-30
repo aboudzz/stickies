@@ -83,7 +83,13 @@ class StickyWindow(Gtk.Window):
 		self.set_focus_child(self.txtView)
 		self.resize(w, h)
 		self.set_position(Gtk.WindowPosition.MOUSE) # default on mouse position
-		if (x, y) != (0, 0): self.move(x, y)
+		if (x, y) != (0, 0): 
+			self.move(x, y)
+		else: 
+			# fix position
+			posx = self.get_position()[0];
+			posy = self.get_position()[1];
+			self.move(posx, posy + 200);
 
 		# sticky dragging event signals
 		self.pressed = False
