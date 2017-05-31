@@ -66,7 +66,6 @@ class StickyApplication(Gtk.Application):
 	def autosaver(self):
 		for st in StickyManager.stickylist:
 			if (st.modified):
-				print("autosaving!");
 				StickyManager.save_sticky(st)
 				st.modified = False
 		return True

@@ -51,7 +51,7 @@ def save_sticky(sticky):
 	if (dto.text != ""):
 		f = open(path, "wb")
 		pickle.dump(dto, f)
-	f.close()
+		f.close()
 
 ''' save a filled sticky, remove an empty sticky. '''
 def close_sticky(sticky):
