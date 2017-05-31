@@ -63,6 +63,8 @@ class StickyWindow(Gtk.Window):
 		self.txtBuffer.connect("changed", self.text_changed)
 		self.text_changed(self.txtBuffer) # sets the window title
 
+		self.modified = False # a flag for autosaving
+
 		# layout
 		hbox = Gtk.HBox()
 		hbox.set_size_request(-1, 33)
@@ -123,6 +125,7 @@ class StickyWindow(Gtk.Window):
 
 	''' text buffer changed event handler. '''
 	def text_changed(self, buffer):
+		self.modified = True
 		text = self.get_text();
 		title = text.split('\n', 1)[0] # take first line
 		if len(title) > 17:

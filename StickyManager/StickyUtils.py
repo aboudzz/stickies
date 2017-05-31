@@ -43,6 +43,15 @@ def create_sticky(app):
 	stickylist.append(sticky)
 	return sticky
 
+''' save a sticky to a file. '''
+def save_sticky(sticky):
+	dto = sticky.toDTO()
+	name = dto.id + ".pkl"
+	path = os.path.join(sticky_home, name)
+	if (dto.text != ""):
+		f = open(path, "wb")
+		pickle.dump(dto, f)
+	f.close()
 
 ''' save a filled sticky, remove an empty sticky. '''
 def close_sticky(sticky):

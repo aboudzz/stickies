@@ -42,6 +42,9 @@ class StickyApplication(Gtk.Application):
 			st.btnNew.connect("clicked", self.window_new)
 			st.show_all()
 
+		# periodically autosave all stickies
+		GLib.timeout_add_seconds(10, self.autosaver);
+
 
 	def do_startup(self):
 		Gtk.Application.do_startup(self)
@@ -58,6 +61,15 @@ class StickyApplication(Gtk.Application):
 		st.connect("delete-event", self.window_close)
 		st.btnNew.connect("clicked", self.window_new)
 		st.show_all()
+
+
+	def autosaver(self):
+		for st in StickyManager.stickylist:
+			if (st.modified):
+				print("autosaving!");
+				StickyManager.save_sticky(st)
+				st.modified = False
+		return True
 
 
 	def exit_gracefully(self):
