@@ -33,8 +33,7 @@ stickylist = []
 
 #define stickies home directory
 sticky_home = os.path.join(os.path.expanduser("~"), ".stickies")
-if not os.path.exists(sticky_home):
-	os.makedirs(sticky_home)
+if not os.path.exists(sticky_home): os.makedirs(sticky_home)
 
 
 ''' create a new sticky. '''
@@ -65,7 +64,6 @@ def close_sticky(sticky):
 	elif os.path.isfile(path):
 		os.remove(path)
 
-
 ''' restore saved stickies. '''
 def restore_stickies(app):
 	for name in os.listdir(sticky_home):
@@ -84,7 +82,8 @@ def restore_stickies(app):
 	if (len(stickylist) == 0): # no saved stickies?
 		create_sticky(app) # create a new one
 
-
 ''' generate an identifier. '''
 def genid():
 	return str(uuid4())[:8]
+
+

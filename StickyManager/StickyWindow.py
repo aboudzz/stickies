@@ -62,7 +62,6 @@ class StickyWindow(Gtk.Window):
 		self.txtView.modify_font(Pango.FontDescription("Open Sans 14"))
 		self.txtBuffer.connect("changed", self.text_changed)
 		self.text_changed(self.txtBuffer) # sets the window title
-
 		self.modified = False # a flag for autosaving
 
 		# layout
@@ -85,9 +84,9 @@ class StickyWindow(Gtk.Window):
 		self.set_focus_child(self.txtView)
 		self.resize(w, h)
 		self.set_position(Gtk.WindowPosition.MOUSE) # default on mouse position
-		if (x, y) != (0, 0): 
+		if (x, y) != (0, 0):
 			self.move(x, y)
-		else: 
+		else:
 			# fix position
 			posx = self.get_position()[0];
 			posy = self.get_position()[1];
@@ -99,7 +98,6 @@ class StickyWindow(Gtk.Window):
 		self.connect("button-release-event", self.button_released)
 		self.connect("motion-notify-event", self.motion_notified)
 
-
 	''' mouse button clicking event handler. '''
 	def button_pressed(self, ev, dat):
 		if (dat.x > 40 and dat.y > 40): # not in resizing position
@@ -109,19 +107,16 @@ class StickyWindow(Gtk.Window):
 				self.x_pressed = dat.x
 				self.y_pressed = dat.y
 
-
 	''' mouse button releasing event handler. '''
 	def button_released(self, ev, dat):
 		if dat.button == 1: # mouse primary
 			self.pressed = False
-
 
 	''' mouse movement event handler '''
 	def motion_notified(self, ev, dat):
 		if (self.pressed):
 			self.move(dat.x_root - self.x_pressed,
 			 		  dat.y_root - self.y_pressed)
-
 
 	''' text buffer changed event handler. '''
 	def text_changed(self, buffer):
@@ -137,13 +132,11 @@ class StickyWindow(Gtk.Window):
 			self.set_title(title)
 			self.lblTitle.set_text(title)
 
-
 	''' get the whole text from buffer. '''
 	def get_text(self):
 		startiter = self.txtBuffer.get_start_iter()
 		enditer = self.txtBuffer.get_end_iter()
 		return self.txtBuffer.get_text(startiter, enditer, include_hidden_chars = True)
-
 
 	''' remove button clicked event handler. '''
 	def remove_clicked(self, button):
@@ -160,7 +153,6 @@ class StickyWindow(Gtk.Window):
 		else:
 			self.close()
 
-
 	''' convert to DTO object. '''
 	def toDTO(self):
 		dto = StickyDTO(id = self.id,
@@ -171,7 +163,6 @@ class StickyWindow(Gtk.Window):
 						text = self.get_text())
 		return dto
 
-
 	''' creates a stickyWindow from DTO object. '''
 	@staticmethod
 	def fromDTO(dto, app):
@@ -181,11 +172,9 @@ class StickyWindow(Gtk.Window):
 							text = dto.text)
 
 
-
-
 ''' Yes/No confirmation Dialog. '''
 class ConfirmDialog(Gtk.Dialog):
-	
+
 	def __init__(self, parent, message=""):
 		Gtk.Dialog.__init__(self, "Confirmation", parent, 0,
 			(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
@@ -193,3 +182,4 @@ class ConfirmDialog(Gtk.Dialog):
 		self.set_resizable(False)
 		self.get_content_area().add(Gtk.Label(message))
 		self.show_all()
+

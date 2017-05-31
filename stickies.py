@@ -22,17 +22,16 @@
 # main application
 #
 
-import gi, sys, StickyManager
+import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GLib
-import signal
 
+import sys, signal, StickyManager
 
 class StickyApplication(Gtk.Application):
-	
+
 	def __init__(self):
 		Gtk.Application.__init__(self)
-
 
 	def do_activate(self):
 		# restore saved stickies and show them
@@ -45,16 +44,13 @@ class StickyApplication(Gtk.Application):
 		# periodically autosave all stickies
 		GLib.timeout_add_seconds(10, self.autosaver);
 
-
 	def do_startup(self):
 		Gtk.Application.do_startup(self)
-
 
 	def window_close(self, sticky, event):
 		StickyManager.close_sticky(sticky)
 		if len(StickyManager.stickylist) == 0:
 			self.quit() # quit app when all stickies are closed
-
 
 	def window_new(self, button):
 		st = StickyManager.create_sticky(self)
@@ -62,14 +58,12 @@ class StickyApplication(Gtk.Application):
 		st.btnNew.connect("clicked", self.window_new)
 		st.show_all()
 
-
 	def autosaver(self):
 		for st in StickyManager.stickylist:
 			if (st.modified):
 				StickyManager.save_sticky(st)
 				st.modified = False
 		return True
-
 
 	def exit_gracefully(self):
 		for st in StickyManager.stickylist:
@@ -86,7 +80,7 @@ def SignalHandler(app):
 		app.exit_gracefully()
 
 	def handler(*args):
-		# Activate GLib signal handler activated
+		# Activate GLib signal handler
 		signal_action(args[0])
 
 	def idle_handler(*args):
@@ -117,3 +111,4 @@ if __name__ == "__main__":
 	SignalHandler(app)
 	exit_status = app.run(sys.argv)
 	sys.exit(exit_status)
+
