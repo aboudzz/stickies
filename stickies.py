@@ -31,18 +31,26 @@ import sys, signal, StickyManager
 class StickyApplication(Gtk.Application):
 
 	def __init__(self):
-		Gtk.Application.__init__(self)
+		Gtk.Application.__init__(self,
+			application_id = "com.github.aboudzakaria.stickies")
 
 	def do_activate(self):
-		# restore saved stickies and show them
-		StickyManager.restore_stickies(self)
-		for st in StickyManager.stickylist:
+		# application is already running check
+		if len(StickyManager.stickylist) > 0:
+			# existing app instance, create a new sticky
+			st = StickyManager.create_sticky(self)
 			st.connect("delete-event", self.window_close)
 			st.btnNew.connect("clicked", self.window_new)
 			st.show_all()
-
-		# periodically autosave all stickies
-		GLib.timeout_add_seconds(10, self.autosaver);
+		else:
+			# new instance, restore saved stickies and show them
+			StickyManager.restore_stickies(self)
+			for st in StickyManager.stickylist:
+				st.connect("delete-event", self.window_close)
+				st.btnNew.connect("clicked", self.window_new)
+				st.show_all()
+			# periodically autosave all stickies
+			GLib.timeout_add_seconds(10, self.autosaver);
 
 	def do_startup(self):
 		Gtk.Application.do_startup(self)
