@@ -40,12 +40,12 @@ class StickyWindow(Gtk.Window):
 		self.lblTitle.set_text("Sticky")
 		self.lblTitle.modify_font(Pango.FontDescription("Open Sans Bold 10"))
 		lblNew = Gtk.Label()
-		lblNew.set_markup("\u2795") # + sign
+		lblNew.set_markup("\u2795") # + plus mark
 		self.btnNew = Gtk.ToolButton()
 		self.btnNew.set_tooltip_text("new sticky")
 		self.btnNew.set_label_widget(lblNew)
 		lblRemove = Gtk.Label()
-		lblRemove.set_markup("\u2718") # x sign
+		lblRemove.set_markup("\u274C") # x cross mark
 		self.btnRemove = Gtk.ToolButton()
 		self.btnRemove.set_tooltip_text("remove sticky")
 		self.btnRemove.set_label_widget(lblRemove)
