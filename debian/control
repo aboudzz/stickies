@@ -1,0 +1,17 @@
+Source: com.github.aboudzakaria.stickies
+Section: utils
+Priority: optional
+Maintainer: Aboud Zakaria <aboud.zakaria@gmail.com>
+Build-Depends: debhelper (>= 10),
+               libgtk-3-dev,
+               libgranite-dev,
+               dh-python,
+               python3-all,
+               python3-setuptools
+Standards-Version: 3.9.3
+
+Package: com.github.aboudzakaria.stickies
+Architecture: any
+Depends: python3, libgranite-dev, ${misc:Depends}
+Description: Stickies
+ Easily create stickies on your desktop

@@ -26,7 +26,11 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GLib
 
-import sys, signal, StickyManager
+try:
+	import stickies.StickyManager as StickyManager
+except ImportError:
+	import StickyManager as StickyManager
+import sys, signal
 
 class StickyApplication(Gtk.Application):
 
@@ -113,10 +117,8 @@ def SignalHandler(app):
 		signal.signal(sig, idle_handler)
 		GLib.idle_add(install_glib_handler, sig, priority=GLib.PRIORITY_HIGH)
 
-
-if __name__ == "__main__":
-	app = StickyApplication()
-	SignalHandler(app)
-	exit_status = app.run(sys.argv)
-	sys.exit(exit_status)
-
+app = StickyApplication()
+SignalHandler(app)
+exit_status = app.run(sys.argv)
+sys.exit(exit_status)
+app.run("", Gio.ApplicationFlags.FLAGS_NONE)

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Stickies
+GenericName=Stickies
+Comment=Easily create stickies
+Categories=System;
+Exec=com.github.aboudzakaria.stickies
+Icon=com.github.aboudzakaria.stickies
+Terminal=false
+Type=Application
+X-GNOME-Gettext-Domain=com.github.aboudzakaria.stickies
+Keywords=Stickies;
+Actions=AboutDialog;
