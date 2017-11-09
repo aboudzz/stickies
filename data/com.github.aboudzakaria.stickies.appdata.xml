@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2017 Aboud Zakaria <aboud.zakaria@gmail.com> -->
+<component type="desktop">
+  <id>com.github.aboudzakaria.stickies</id>
+  <metadata_license>CC0</metadata_license>
+  <project_license>GPL-3.0+</project_license>
+  <name>Stickies</name>
+  <summary>Neat sticky notes app</summary>
+  <developer_name>Neat sticky notes app</developer_name>
+  <description>
+    <p>Create beautiful stickers on your desktop!</p>
+  </description>
+  <provides>
+      <binary>com.github.aboudzakaria.stickies</binary>
+  </provides>
+  <screenshots>
+      <screenshot type="default">
+          <caption>Easy start manage your bottles</caption>
+          <image>https://github.com/aboudzakaria/stickies/blob/master/data/screenshot.png?raw=true</image>
+      </screenshot>
+  </screenshots>
+  <url type="homepage">https://github.com/aboudzakaria/stickies</url>
+  <url type="bugtracker">https://github.com/aboudzakaria/stickies/issues/labels/bug</url>
+  <url type="help">https://github.com/aboudzakaria/stickies/issues/new</url>
+  <custom>
+     <value key="x-appcenter-color-primary">#B69315</value>
+     <value key="x-appcenter-color-primary-text">#FFFFFF</value>
+  </custom>
+​  <releases>
+​    <release version="0.0.2" date="2017-11-08">
+​      <description>
+​        <ul>
+            <li>Minor fixes</li>
+        </ul>
+​      </description>
+​    </release>
+​  </releases>
+</component>
