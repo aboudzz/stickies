@@ -12,8 +12,6 @@ Standards-Version: 3.9.3
 
 Package: com.github.aboudzakaria.stickies
 Architecture: any
-Depends: python3, python3-gi, libgranite-dev, ${misc:Depends}
-Homepage: https://github.com/aboudzakaria/stickies
-Description:Neat sticky notes built using python3 and GTK3.
- Stick your notes on your desktop screen without worrying about losing them.
- Stickies autosaves your notes and recovers them at every application startup.
+Depends: python3, libgranite-dev, ${misc:Depends}
+Description: Stickies
+ Neat sticky notes app for elementary OS
