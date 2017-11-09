@@ -3,7 +3,6 @@ Section: utils
 Priority: optional
 Maintainer: Aboud Zakaria <aboud.zakaria@gmail.com>
 Standards-Version: 3.9.3
-
 Package: com.github.aboudzakaria.stickies
 Version: 0.1.1
 Build-Depends: debhelper (>= 10),
