@@ -1,12 +1,12 @@
 [Desktop Entry]
+Version=0.1.1
 Name=Stickies
 GenericName=Stickies
-Comment=Easily create stickies
-Categories=System;
+Comment=Neat sticky notes
+Categories=Accessories;Office;
 Exec=com.github.aboudzakaria.stickies
 Icon=com.github.aboudzakaria.stickies
 Terminal=false
 Type=Application
 X-GNOME-Gettext-Domain=com.github.aboudzakaria.stickies
-Keywords=Stickies;
-Actions=AboutDialog;
+Keywords=stickies;sticky;note;

@@ -3,19 +3,19 @@
 <component type="desktop">
   <id>com.github.aboudzakaria.stickies</id>
   <metadata_license>CC0</metadata_license>
-  <project_license>GPL-3.0+</project_license>
+  <project_license>GPL-2.0+</project_license>
   <name>Stickies</name>
-  <summary>Neat sticky notes app</summary>
-  <developer_name>Neat sticky notes app</developer_name>
+  <summary>Neat sticky notes</summary>
+  <developer_name>Aboud Zakaria</developer_name>
   <description>
-    <p>Create beautiful stickers on your desktop!</p>
+    <p>Create beautiful sticky notes on your desktop!</p>
   </description>
   <provides>
       <binary>com.github.aboudzakaria.stickies</binary>
   </provides>
   <screenshots>
       <screenshot type="default">
-          <caption>Easy start manage your bottles</caption>
+          <caption>Stickies</caption>
           <image>https://github.com/aboudzakaria/stickies/blob/master/data/screenshot.png?raw=true</image>
       </screenshot>
   </screenshots>
@@ -23,14 +23,15 @@
   <url type="bugtracker">https://github.com/aboudzakaria/stickies/issues/labels/bug</url>
   <url type="help">https://github.com/aboudzakaria/stickies/issues/new</url>
   <custom>
-     <value key="x-appcenter-color-primary">#B69315</value>
-     <value key="x-appcenter-color-primary-text">#FFFFFF</value>
+       <value key="x-appcenter-color-primary">#ffffaa</value>
+       <value key="x-appcenter-color-primary-text">rgb(0, 0, 0)</value>
+       <value key="x-appcenter-suggested-price">1</value>
   </custom>
 ​  <releases>
-​    <release version="0.0.2" date="2017-11-08">
+​    <release version="0.1.1" date="2017-11-09">
 ​      <description>
 ​        <ul>
-            <li>Minor fixes</li>
+            <li>first release</li>
         </ul>
 ​      </description>
 ​    </release>
