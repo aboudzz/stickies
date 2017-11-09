@@ -29,4 +29,4 @@ modules_path = "/usr/share/com.github.aboudzakaria.stickies/stickies"
 
 sys.path.insert(0, modules_path)
 
-import main
+import stickies.main
