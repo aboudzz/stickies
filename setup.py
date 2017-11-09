@@ -15,12 +15,12 @@ install_data = [('/usr/share/metainfo', ['data/com.github.aboudzakaria.stickies.
                 (inst_path,['stickies/main.py']),
                 (inst_path,['stickies/__init__.py']),]
 
-setup(  name='Stickies',
-        version='0.0.3',
+setup(  name='stickies',
+        version='0.1.1',
         author='Aboud Zakaria',
-        description='Neat sticky notes app',
+        description='Neat sticky notes app for elementary OS',
         url='https://github.com/aboudzakaria/stickies',
-        license='GNU GPL3',
+        license='GNU GPL2',
         scripts=['com.github.aboudzakaria.stickies'],
         packages=['stickies'],
         data_files=install_data)
