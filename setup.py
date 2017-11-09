@@ -38,7 +38,7 @@ install_data = [('/usr/share/metainfo', ['data/com.github.aboudzakaria.stickies.
                 (inst_path,['stickies/__init__.py']),]
 
 setup(  name='stickies',
-        version='0.1.1',
+        version='0.1.6',
         author='Aboud Zakaria',
         description='Neat sticky notes app for elementary OS',
         url='https://github.com/aboudzakaria/stickies',
