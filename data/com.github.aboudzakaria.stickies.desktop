@@ -1,9 +1,8 @@
 [Desktop Entry]
-Version=0.1.1
 Name=Stickies
 GenericName=Stickies
 Comment=Neat sticky notes
-Categories=Accessories;Office;
+Categories=Utility;Office;
 Exec=com.github.aboudzakaria.stickies
 Icon=com.github.aboudzakaria.stickies
 Terminal=false
