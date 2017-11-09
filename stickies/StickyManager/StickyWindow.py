@@ -59,7 +59,7 @@ class StickyWindow(Gtk.Window):
 		self.txtView.set_border_width(10) # apply some hardcoded padding
 		self.txtView.override_background_color(Gtk.StateFlags.NORMAL, rgbaColor)
 		self.txtView.override_background_color(Gtk.StateFlags.SELECTED, Gdk.RGBA(0.5, 0.5, 0.5, 0.7)) # dark gray
-		self.txtView.modify_font(Pango.FontDescription("Open Sans 14"))
+		self.txtView.modify_font(Pango.FontDescription("Open Sans 13"))
 		self.txtBuffer.connect("changed", self.text_changed)
 		self.text_changed(self.txtBuffer) # sets the window title
 		self.modified = False # a flag for autosaving
