@@ -35,8 +35,7 @@ install_data = [('/usr/share/metainfo', ['data/com.github.aboudzakaria.stickies.
                 (inst_path+'/stickies/StickyManager',['stickies/StickyManager/StickyWindow.py']),
                 (inst_path+'/stickies/StickyManager',['stickies/StickyManager/__init__.py']),
                 (inst_path+'/stickies',['stickies/main.py']),
-                (inst_path+'/stickies',['stickies/__init__.py']),
-                (inst_path, ['data/com.github.aboudzakaria.stickies.png']),]
+                (inst_path+'/stickies',['stickies/__init__.py']),]
 
 setup(  name='stickies',
         version='0.1.6',
